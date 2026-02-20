@@ -1,0 +1,46 @@
+[
+  {
+    "id": "aurora-ai",
+    "name": "Aurora AI",
+    "website": "https://www.aurora.tech",
+    "sector": "Autonomous Systems",
+    "stage": "Series C",
+    "location": "Pittsburgh, US",
+    "employees": 1800,
+    "description": "Building autonomous trucking technology.",
+    "signals": ["Hiring on careers page", "Recent press announcements"]
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "website": "https://vercel.com",
+    "sector": "Developer Tools",
+    "stage": "Series E",
+    "location": "San Francisco, US",
+    "employees": 700,
+    "description": "Frontend cloud platform for modern web apps.",
+    "signals": ["Active changelog", "Frequent blog updates"]
+  },
+  {
+    "id": "synthesia",
+    "name": "Synthesia",
+    "website": "https://www.synthesia.io",
+    "sector": "AI Media",
+    "stage": "Series D",
+    "location": "London, UK",
+    "employees": 450,
+    "description": "AI video generation platform for enterprises.",
+    "signals": ["Enterprise customer logos", "Open roles in GTM"]
+  },
+  {
+    "id": "bolt",
+    "name": "Bolt",
+    "website": "https://bolt.eu",
+    "sector": "Mobility",
+    "stage": "Late Stage",
+    "location": "Tallinn, EE",
+    "employees": 4100,
+    "description": "Mobility super app across ride hailing and delivery.",
+    "signals": ["Multi-country expansion", "New product launches"]
+  }
+]
