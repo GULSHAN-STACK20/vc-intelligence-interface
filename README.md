@@ -1,91 +1,57 @@
-VC Intelligence Interface – ScoutOS VC
+# VC Intelligence Interface + Live Enrichment
 
-A production-style SaaS dashboard for VC sourcing workflows.
+A Next.js MVP for VC sourcing workflows: discover companies, open profile, enrich from live public web pages, and take action with notes/lists/saved searches.
 
-Discover companies, open structured profiles, enrich from live public web pages, and manage sourcing workflows with notes, lists, and saved searches.
+## Features
 
-🚀 Live Demo
+- App shell with sidebar + global search.
+- `/companies` with search, filters, sortable table, pagination.
+- `/companies/[id]` profile with overview, signal timeline, notes, save-to-list.
+- `/lists` create/remove/export lists in CSV/JSON (localStorage persistence).
+- `/saved` save and re-run searches (localStorage persistence).
+- Live enrichment via server endpoint (`/api/enrich`) that pulls public pages through `r.jina.ai` and extracts:
+  - Summary
+  - What-they-do bullets
+  - Keywords
+  - Derived signals
+  - Sources + timestamp
 
-[Add your Vercel link here]
+## Tech Stack
 
-✨ Product Overview
+- Next.js 14 (App Router)
+- TypeScript
+- LocalStorage for client persistence
 
-ScoutOS VC simulates a modern venture sourcing intelligence interface with:
+## Getting Started
 
-Company discovery with search, sector filtering, sorting, and pagination
+```bash
+npm install
+npm run dev
+```
 
-KPI stat cards and improved table hierarchy
+Open `http://localhost:3000`.
 
-Stage badges and right-aligned metrics
+## Environment Variables
 
-URL-driven filters for shareable views
+No required env vars for the default flow.
 
-Company profile with structured metadata header
+Optional:
 
-Signals timeline view
+- `FIRECRAWL_API_KEY` (not wired in this MVP yet; reserved for swapping enrichment providers while keeping keys server-side only).
 
-Persistent notes and list management
+Create a `.env.local` if needed.
 
-Saved searches with rerun support
+## Safety Notes
 
-CSV/JSON export with robust escaping
+- Enrichment runs **server-side** in `/api/enrich`; no API keys are exposed to browser code.
+- The enrichment request accepts only `companyId`; the API resolves the website from canonical seed data to prevent client-side URL tampering.
+- Only public URLs are fetched. No access-control bypass behavior is implemented.
 
-Toast notifications and interaction feedback
+## Deploy
 
-Premium SaaS-grade UI polish
+Recommended: Vercel.
 
-🔍 Live Enrichment
-
-Server-side enrichment via /api/enrich.
-
-The endpoint:
-
-Accepts only companyId
-
-Derives canonical website server-side
-
-Fetches public content via r.jina.ai
-
-Extracts:
-
-Summary
-
-What-they-do bullets
-
-Keywords
-
-Derived signals
-
-Sources
-
-Timestamp
-
-All enrichment runs securely on the server.
-No API keys are exposed to the client.
-Only public URLs are accessed.
-
-🛠 Tech Stack
-
-Next.js 14 (App Router)
-
-TypeScript
-
-Tailwind CSS
-
-Server-side API routes
-
-LocalStorage persistence
-
-Deployed on Vercel
-
-🧠 Design Decisions
-
-Layered dark SaaS UI for clarity and hierarchy
-
-Enrichment security by deriving website server-side
-
-Client persistence for speed and simplicity
-
-URL-synced search parameters for reproducibility
-
-Explicit loading, success, and error states
+1. Push repository.
+2. Import in Vercel.
+3. Build command: `npm run build`
+4. Start command: `npm run start`

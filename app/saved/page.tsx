@@ -18,6 +18,8 @@ export default function SavedPage() {
   };
 
   return (
+    <div className="grid gap-lg">
+      <h1 className="page-title">Saved Searches</h1>
     <div className="grid" style={{ gap: 14 }}>
       <h1 style={{ margin: 0 }}>Saved Searches</h1>
       <div className="panel">
@@ -25,6 +27,7 @@ export default function SavedPage() {
           {saved.map((item) => (
             <li key={item.id} className="row" style={{ justifyContent: 'space-between' }}>
               <div>
+                <Link href={`/companies?q=${encodeURIComponent(item.query)}&sector=${encodeURIComponent(item.sector)}`} style={{ color: '#a7bdff' }}>
                 <Link href={`/companies?q=${encodeURIComponent(item.query)}`} style={{ color: '#a7bdff' }}>
                   {item.query || '(blank query)'} · {item.sector}
                 </Link>
@@ -33,6 +36,7 @@ export default function SavedPage() {
               <button className="secondary" onClick={() => remove(item.id)}>Delete</button>
             </li>
           ))}
+          {!saved.length && <li className="empty-state">🗂️ No saved searches yet. Save a search from Companies to rerun it later.</li>}
           {!saved.length && <li className="small">No saved searches yet.</li>}
         </ul>
       </div>

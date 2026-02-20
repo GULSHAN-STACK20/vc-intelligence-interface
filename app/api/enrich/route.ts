@@ -24,6 +24,15 @@ const bullets = (text: string) => {
 
 export async function POST(request: Request) {
   try {
+    const { companyId } = await request.json();
+    // Security note: the client only sends companyId. We look up the canonical
+    // website server-side so callers cannot tamper with arbitrary target URLs.
+    const company = companies.find((c) => c.id === companyId);
+    if (!company) {
+      return Response.json({ error: 'Invalid payload' }, { status: 400 });
+    }
+
+    const base = company.website.replace(/\/$/, '');
     const { companyId, website, name } = await request.json();
     const company = companies.find((c) => c.id === companyId);
     if (!website || !name || !company) {
