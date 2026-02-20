@@ -33,6 +33,13 @@ export async function POST(request: Request) {
     }
 
     const base = company.website.replace(/\/$/, '');
+    const { companyId, website, name } = await request.json();
+    const company = companies.find((c) => c.id === companyId);
+    if (!website || !name || !company) {
+      return Response.json({ error: 'Invalid payload' }, { status: 400 });
+    }
+
+    const base = website.replace(/\/$/, '');
     const targets = [base, `${base}/about`, `${base}/blog`, `${base}/careers`];
 
     const responses = await Promise.all(targets.map(async (url) => {

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import companies from '@/data/companies.json';
 import { readLocal, writeLocal } from '@/lib/storage';
-import { toast } from '@/lib/toast';
 
 export default function ListsPage() {
   const [lists, setLists] = useState<Record<string, string[]>>({});
@@ -35,6 +34,9 @@ export default function ListsPage() {
     const payload = format === 'json'
       ? JSON.stringify(rows, null, 2)
       : ['id,name,sector,stage,location,website', ...rows.map((r) => [r.id, r.name, r.sector, r.stage, r.location, r.website].map(escapeCsv).join(','))].join('\n');
+    const payload = format === 'json'
+      ? JSON.stringify(rows, null, 2)
+      : ['id,name,sector,stage,location,website', ...rows.map((r) => `${r.id},${r.name},${r.sector},${r.stage},${r.location},${r.website}`)].join('\n');
     const blob = new Blob([payload], { type: format === 'json' ? 'application/json' : 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -50,6 +52,8 @@ export default function ListsPage() {
   return (
     <div className="grid gap-lg">
       <h1 className="page-title">Lists</h1>
+    <div className="grid" style={{ gap: 14 }}>
+      <h1 style={{ margin: 0 }}>Lists</h1>
       <div className="panel row">
         <input className="input" placeholder="New list name" value={name} onChange={(e) => setName(e.target.value)} />
         <button onClick={createList}>Create</button>

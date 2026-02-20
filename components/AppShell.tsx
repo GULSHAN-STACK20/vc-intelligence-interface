@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useEffect, useState } from 'react';
 import type { ToastKind } from '@/lib/toast';
+import { FormEvent, ReactNode, useState } from 'react';
 
 const nav = [
   { href: '/companies', label: 'Companies' },
@@ -46,6 +47,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="brand-icon" aria-hidden>◉</span>
           ScoutOS VC
         </div>
+        <div className="brand">ScoutOS VC</div>
         {nav.map((item) => (
           <Link key={item.href} href={item.href} className={`nav-link ${pathname.startsWith(item.href) ? 'active' : ''}`}>
             {item.label}
@@ -65,6 +67,15 @@ export function AppShell({ children }: { children: ReactNode }) {
           {children}
         </div>
         {toast && <div className={`toast ${toast.kind}`}>{toast.message}</div>}
+        <form onSubmit={onSearch} style={{ marginBottom: 16 }}>
+          <input
+            className="search-bar"
+            placeholder="Global company search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </form>
+        {children}
       </main>
     </div>
   );

@@ -31,6 +31,7 @@ export function CompanyProfile({ company }: { company: Company }) {
     lists[listName] = Array.from(new Set([...(lists[listName] || []), company.id]));
     writeLocal('lists', lists);
     toast(`Saved to ${listName}`);
+    alert(`Saved to ${listName}`);
   };
 
   const enrich = async () => {
@@ -41,6 +42,7 @@ export function CompanyProfile({ company }: { company: Company }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ companyId: company.id })
+        body: JSON.stringify({ companyId: company.id, website: company.website, name: company.name })
       });
       if (!response.ok) throw new Error('Unable to enrich');
       const result: EnrichmentResult = await response.json();
@@ -95,6 +97,16 @@ export function CompanyProfile({ company }: { company: Company }) {
         </div>
         <div>
           <h2 className="section-title">Notes & Lists</h2>
+  return (
+    <div className="grid" style={{ gap: 14 }}>
+      <h1 style={{ margin: 0 }}>{company.name}</h1>
+      <div className="panel grid two">
+        <div>
+          <p>{company.description}</p>
+          <p className="small">{company.sector} · {company.stage} · {company.location}</p>
+          <a className="badge" href={company.website} target="_blank">Website</a>
+        </div>
+        <div>
           <div className="row" style={{ marginBottom: 10 }}>
             <input className="input" value={listName} onChange={(e) => setListName(e.target.value)} />
             <button onClick={saveToList}>Save to List</button>
@@ -125,6 +137,15 @@ export function CompanyProfile({ company }: { company: Company }) {
         {data && !loading && (
           <div className="grid" style={{ gap: 8 }}>
             <div className="success-note">✅ Enrichment ready</div>
+      <div className="panel">
+        <div className="row" style={{ justifyContent: 'space-between' }}>
+          <h3 style={{ margin: 0 }}>Signals timeline</h3>
+          <button onClick={enrich} disabled={loading}>{loading ? 'Enriching...' : 'Enrich'}</button>
+        </div>
+        <ul>{company.signals.map((s) => <li key={s}>{s}</li>)}</ul>
+        {error && <p style={{ color: '#f87171' }}>{error}</p>}
+        {data && (
+          <div className="grid" style={{ gap: 8 }}>
             <p><strong>Summary:</strong> {data.summary}</p>
             <div><strong>What they do:</strong><ul>{data.whatTheyDo.map((b) => <li key={b}>{b}</li>)}</ul></div>
             <div className="row"><strong>Keywords:</strong>{data.keywords.map((k) => <span className="badge" key={k}>{k}</span>)}</div>
@@ -132,6 +153,7 @@ export function CompanyProfile({ company }: { company: Company }) {
             <div>
               <strong>Sources:</strong>
               <ul>{data.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer noopener" style={{ color: '#a7bdff' }}>{s.url}</a> <span className="small">({new Date(s.timestamp).toLocaleString()})</span></li>)}</ul>
+              <ul>{data.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" style={{ color: '#a7bdff' }}>{s.url}</a> <span className="small">({new Date(s.timestamp).toLocaleString()})</span></li>)}</ul>
             </div>
           </div>
         )}
