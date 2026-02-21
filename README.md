@@ -1,5 +1,10 @@
 # VC Intelligence Interface + Live Enrichment
 
+Live Demo:
+https://vc-intelligence-interface-9d66.vercel.app
+
+Designed as a thesis-first sourcing workflow prototype.
+
 A Next.js MVP for VC sourcing workflows: discover companies, open profile, enrich from live public web pages, and take action with notes/lists/saved searches.
 
 ## Features
