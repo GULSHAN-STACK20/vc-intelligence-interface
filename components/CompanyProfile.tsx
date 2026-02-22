@@ -45,8 +45,8 @@ export function CompanyProfile({ company }: { company: Company }) {
         body: JSON.stringify({
           companyId: company.id,
           website: company.website,
-          name: company.name
-        })
+          name: company.name,
+        }),
       });
 
       if (!response.ok) throw new Error('Unable to enrich');
@@ -83,6 +83,7 @@ export function CompanyProfile({ company }: { company: Company }) {
             {company.sector} · {company.location}
           </p>
         </div>
+
         <div className="row">
           <span className={stageClass}>{company.stage}</span>
           <span className="small">{company.employees} employees</span>
@@ -102,10 +103,10 @@ export function CompanyProfile({ company }: { company: Company }) {
           <h2 className="section-title">Overview</h2>
           <p>{company.description}</p>
 
-          <h2 className="section-title">Signals timeline</h2>
+          <h2 className="section-title">Signals</h2>
           <ul>
-            {company.signals.map((s) => (
-              <li key={s}>{s}</li>
+            {company.signals.map((signal) => (
+              <li key={signal}>{signal}</li>
             ))}
           </ul>
         </div>
@@ -156,14 +157,14 @@ export function CompanyProfile({ company }: { company: Company }) {
             <div>
               <strong>What they do:</strong>
               <ul>
-                {data.whatTheyDo.map((b) => (
-                  <li key={b}>{b}</li>
+                {data.whatTheyDo.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <strong>Keywords:</strong>
+              <strong>Keywords:</strong>{' '}
               {data.keywords.map((k) => (
                 <span className="badge" key={k}>
                   {k}
