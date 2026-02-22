@@ -1,10 +1,5 @@
 import type { Metadata } from 'next';
 import { AppShell } from '@/components/AppShell';
-import './globals.css';
-
-export const metadata: Metadata = {
-  title: 'ScoutOS VC – Intelligence Interface',
-  description: 'Discover, enrich, and manage high-signal companies in one workflow.'
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
@@ -18,6 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <AppShell>{children}</AppShell>
+
+        <footer className="text-center text-xs text-gray-400 py-4 border-t">
+          Built by Gulshan Kotiya — Full Stack Developer
+        </footer>
+
         <Analytics />
       </body>
     </html>
